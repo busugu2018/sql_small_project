@@ -56,14 +56,60 @@ CREATE TABLE Employee_copy AS SELECT * FROM Employee WHERE 1=0;
 select * from Employee_copy;
 
 -- 1.11) Fetch only the last two characters of the emp_name (Hint: substring)
+-- Final answer
+SELECT SUBSTRING(Emp_name, LENGTH(Emp_name) - 1, 2) AS Emp_name
+FROM Employee;
+
+-- these are just tests to review before submission
+SELECT *, SUBSTRING(Emp_name, LENGTH(Emp_name) - 1, 2) AS Emp_name_last2
+FROM Employee;
+
+SELECT Emp_name, SUBSTRING(Emp_name, LENGTH(Emp_name) - 1, 2) AS Emp_name
+FROM Employee;
+
+SELECT Emp_id, 
+	SUBSTRING(Emp_name, LENGTH(Emp_name) - 1, 2) AS Emp_name,
+    Department, 
+    Salary, 
+    new_salary
+FROM Employee;
 
 
 
 
 
 
+-- Considering that the duplicate entries are refined from the above table, 
+-- Write queries for below:
+
+-- Q2) Aggregate functions:
+-- 2.1) Write a query to find the no.of rows whose emp_id is less than 150
+select count(*) from Employee where Emp_id < 150; 
+
+-- 2.2) Find the maximum salary of the employee table whose emp_id is less than 160
+select max(salary) as salary from Employee where Emp_id < 160;
+
+-- 2.3) Find the maximum salary of the employee table whose emp_id is greater than 150
+select max(salary) as salary from Employee where Emp_id > 150;
+
+-- 2.4) Find the average salary of the employee table.
+select avg(salary) as salary from Employee;
 
 
+
+-- Q3)
+-- Fetch all the rows of two tables in a single query
+SELECT * FROM customer UNION ALL SELECT * FROM supplier;
+
+-- Fetch all the rows of two tables in a single query with no duplicates.
+SELECT * FROM customer UNION SELECT * FROM supplier;
+
+-- Find the cust_id‘s of customer table where Address is Dallas, Seattle, Chicago, Miami
+-- But contact not equal to 101
+select Cust_id 
+	from customer 
+    where Address in ('Dallas', 'Seattle', 'Chicago', 'Miami')
+    and contact != 101;
 
 
 

@@ -82,6 +82,8 @@ FROM Employee;
 -- Considering that the duplicate entries are refined from the above table, 
 -- Write queries for below:
 
+
+
 -- Q2) Aggregate functions:
 -- 2.1) Write a query to find the no.of rows whose emp_id is less than 150
 select count(*) from Employee where Emp_id < 150; 
@@ -94,6 +96,7 @@ select max(salary) as salary from Employee where Emp_id > 150;
 
 -- 2.4) Find the average salary of the employee table.
 select avg(salary) as salary from Employee;
+
 
 
 
@@ -110,6 +113,102 @@ select Cust_id
 	from customer 
     where Address in ('Dallas', 'Seattle', 'Chicago', 'Miami')
     and contact != 101;
+
+
+
+
+
+
+
+
+
+-- Intermediate LEVEL 1:
+-- row_Number column was added specially to avaid replication error in MySQL.
+
+
+-- Q1) 
+-- Write SQL queries for the following: Create a table with top 5 cards for each day based on the amount spent (use the table provided as reference)
+-- 1. Top 5 cards on the amount spent
+select * from Card_info order by Transaction_Amount desc limit 5;
+
+-- 2. Top cards on ‘16-09-2018’
+select * from Card_info where Date = '2018-09-16' order by Transaction_Amount Desc;
+
+-- 3. Top 5 cards for each day based on the amount spent
+SELECT *
+FROM ( 
+	SELECT *,
+        ROW_NUMBER() OVER (PARTITION BY Date ORDER BY Transaction_Amount DESC) as Transaction_Rank 
+	FROM Card_info
+) ranked_transactions 
+WHERE Transaction_Rank <= 5 
+ORDER BY Date, Transaction_Rank;
+
+
+
+-- Q2)
+-- Provide the outputs of LEFT (Keep table X on Left side), INNER & FULL OUTER joins for the following two tables 
+
+
+
+
+-- Q3)
+-- What will be the output of the following Query?
+-- SELECT CASE WHEN null=null THEN ‘Milk’ Else ‘Egg’ END from DUAL;
+
+-- Answer 3: 
+-- The output of the following Query ‘Egg’ because null=null is false, and else is "'Egg'.
+
+
+
+
+
+
+-- Q4)
+-- Answer the following questions:
+-- 1. What is the possible data type of the column ‘COL1’?
+
+
+
+
+
+-- 2. What will the output of the following SQL statements be?
+--      ‘SELECT COUNT(*) AS ENTRIES FROM TABLE;’
+--      ‘SELECT COUNT(COL1) AS ENTRIES FROM TABLE;’
+--      ‘SELECT COUNT(DISTINCT COL1) AS ENTRIES FROM TABLE;’
+
+
+
+
+
+-- 3. Write a query to fetch rows with values ranging from 0 to 2 (assuming the data type to be same as mentioned above)
+
+
+
+
+-- Q5)
+-- 1. Find out the number of orders booked and their total purchased amount for each day. The output should be in the below format:
+--      a. "For 2001-10-10 there are 15 orders and total amount is Rs.100"
+-- 2. Find the total purchase amount at a customer salesman level and rank the salesmen based on the total sales done
+-- 3. Find the orders with all the field in such a manner that, the oldest order date will come first and the highest purchase amount of same day will come first
+
+
+
+
+
+-- Q6)
+-- Write a query in SQL to obtain the name of the physicians who are the head of each department. Use the below two tables
+
+
+
+
+
+
+
+
+
+
+
 
 
 

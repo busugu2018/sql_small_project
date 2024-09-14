@@ -274,17 +274,18 @@ ORDER BY salesman_rank;
 
 
 
-
-
-
 -- 3. Find the orders with all the field in such a manner that, the oldest order date will come first and the highest purchase amount of same day will come first
-
+SELECT ord_no, purch_amt, ord_date, customer_id, salesman_id FROM statements ORDER BY ord_date ASC, purch_amt DESC;
 
 
 -- Q6)
 -- Write a query in SQL to obtain the name of the physicians who are the head of each department. Use the below two tables
 
-
+SELECT 
+	d.name AS department_name, 
+    p.name AS head_physician 
+FROM department d 
+JOIN physician p ON d.head_employee_id = p.employee_id;
 
 
 
@@ -307,7 +308,7 @@ With T1CTE as
 delete from T1CTE where rowNumber > 1;
 select * from T1;
 
- 
+
  
 -- Question 2: 
 /* Write a query to find cumulative sum of amount for every customer, without using windowing function

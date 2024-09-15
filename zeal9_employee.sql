@@ -239,6 +239,7 @@ SELECT * FROM Q4_TABLE WHERE COL1 >= 0 AND COL1 <= 2 AND COL1 IS NOT NULL;
 -- 1. Find out the number of orders booked and their total purchased amount for each day. The output should be in the below format:
 --      a. "For 2001-10-10 there are 15 orders and total amount is Rs.100"
 SELECT ord_date, COUNT(ord_no) AS total_orders, SUM(purch_amt) AS total_purchase_amount FROM statements GROUP BY ord_date ORDER BY ord_date;
+
 /*
 
 order_date, total_orders, total_purchase_amount
@@ -314,6 +315,18 @@ select * from T1;
 /* Write a query to find cumulative sum of amount for every customer, without using windowing function
 *No need to create insert statements, copy the data to excel and load the excel data into your table in sql workbench.*/
 
+SELECT 
+	Input.CustId, 
+    Input.Date, 
+    Input.Amount, 
+	(SELECT SUM(Output.Amount) 
+		FROM Output 
+		WHERE 
+			Output.CustId = Input.CustId 
+		AND Output.Date <= Input.Date ) 
+		AS Cumulative 
+FROM  Input 
+ORDER BY Input.CustID, Input.Date;
 																	
  
  
